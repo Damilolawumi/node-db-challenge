@@ -1,4 +1,5 @@
 const db = require('../data/db-config');
+const mappers = require('../mappers/mappers');
 
 module.exports = {
     get,
@@ -6,7 +7,10 @@ module.exports = {
 };
 
 function get() {
-    return db('project');
+    return db('project')
+    .then(projects => projects.map(project => mappers.projectToBody(project)))
+
+    
 }
 
 function insert(project) {
